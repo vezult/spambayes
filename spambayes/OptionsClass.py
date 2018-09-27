@@ -497,7 +497,7 @@ class OptionsClass(object):
                         if optval == '""':
                             optval = ''
                         optname = optname.rstrip().lower()
-                        if self._options.has_key((sectname, optname)):
+                        if (sectname, optname) in self._options:
                             out.write(optname)
                             out.write(vi)
                             newval = self.unconvert(sectname, optname)
@@ -593,11 +593,11 @@ class OptionsClass(object):
                 value = c.get(sect, opt)
                 section = sect
                 option = opt
-                if not self._options.has_key((section, option)):
+                if (section, option) not in self._options:
                     if option.startswith('x-'):
                         # try setting option without the x- prefix
                         option = option[2:]
-                        if self._options.has_key((section, option)):
+                        if (section, option) in self._options:
                             self.convert_and_set(section, option, value)
                         # not an error if an X- option is missing
                     else:
@@ -605,7 +605,7 @@ class OptionsClass(object):
                         # going the other way, if the option has been
                         # deprecated, set its x-prefixed version and
                         # emit a warning
-                        if self._options.has_key((section, option)):
+                        if (section, option) in self._options:
                             self.convert_and_set(section, option, value)
                             self._report_deprecated_error(section, opt)
                         else:
@@ -653,13 +653,13 @@ class OptionsClass(object):
 
     def get_option(self, sect, opt):
         '''Get an option.'''
-        if self.conversion_table.has_key((sect, opt)):
+        if (sect, opt) in self.conversion_table:
             sect, opt = self.conversion_table[sect, opt]
         return self._options[sect, opt.lower()]
 
     def get(self, sect, opt):
         '''Get an option value.'''
-        if self.conversion_table.has_key((sect, opt.lower())):
+        if (sect, opt.lower()) in self.conversion_table:
             sect, opt = self.conversion_table[sect, opt.lower()]
         return self.get_option(sect, opt.lower()).get()
 
@@ -668,7 +668,7 @@ class OptionsClass(object):
 
     def set(self, sect, opt, val=None):
         '''Set an option.'''
-        if self.conversion_table.has_key((sect, opt.lower())):
+        if (sect, opt.lower()) in self.conversion_table:
             sect, opt = self.conversion_table[sect, opt.lower()]
             
         # Annoyingly, we have a special case.  The notate_to and
