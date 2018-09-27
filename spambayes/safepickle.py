@@ -34,7 +34,7 @@ def pickle_write(filename, value, protocol=0):
             fp = open(tmp, 'wb') 
             pickle.dump(value, fp, protocol) 
             fp.close() 
-        except IOError, e: 
+        except IOError as e:
             if options["globals", "verbose"]: 
                 print >> sys.stderr, 'Failed update: ' + str(e)
             if fp is not None: 
