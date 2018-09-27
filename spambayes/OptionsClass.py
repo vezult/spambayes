@@ -681,7 +681,7 @@ class OptionsClass(object):
         opt = opt.lower()
         try:
             val = self.convert(sect, opt, val)
-        except (KeyError, TypeError), msg:
+        except (KeyError, TypeError) as msg:
             if stream is not None:
                 self._report_option_error(sect, opt, val, stream, msg)
             else:
