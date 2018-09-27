@@ -270,7 +270,7 @@ class Option(object):
                 return True
             elif str(value) == "False" or value == 0:
                 return False
-            raise TypeError, self.name + " must be True or False"
+            raise TypeError(self.name + " must be True or False")
         if self.multiple_values_allowed():
             # This will fall apart if the allowed_value is a tuple,
             # but not a homogenous one...
@@ -290,7 +290,7 @@ class Option(object):
             return tuple(vals)
         else:
             return self._convert(value, svt)
-        raise TypeError, self.name + " has an invalid type."
+        raise TypeError(self.name + " has an invalid type.")
 
     def _convert(self, value, to_type):
         '''Convert an int, float or string to the specified type.'''
@@ -303,7 +303,7 @@ class Option(object):
             return locale.atof(value)
         if to_type in types.StringTypes:
             return str(value)
-        raise TypeError, "Invalid type."
+        raise TypeError("Invalid type.")
 
     def unconvert(self):
         '''Convert value from the appropriate type to a string.'''
