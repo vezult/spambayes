@@ -118,6 +118,7 @@ except AttributeError:
         FloatType = float
         IntType = int
         BooleanType = bool
+        TupleType = (tuple,)
         StringTypes = (str,)
 
     types = TypesWrapper()
