@@ -2,7 +2,10 @@
 
 import sys
 import os
-import cPickle as pickle
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
 
 import lockfile
 
