@@ -89,6 +89,8 @@ except ImportError:
     except ImportError:
         import io as StringIO
 
+    xrange = range
+
 
 import re
 import locale
