@@ -86,7 +86,6 @@ except ImportError:
     import StringIO
 
 import re
-import types
 import locale
 from textwrap import wrap
 
@@ -100,7 +99,23 @@ __all__ = ['OptionsClass',
            'OCRAD_CHARSET',
           ]
 
-MultiContainerTypes = (types.TupleType, types.ListType)
+MultiContainerTypes = (tuple, list)
+try:
+    import types
+    types.StringTypes
+except AttributeError:
+    # This is python3
+
+    class TypesWrapper(object):
+        StringType = str
+        FloatType = float
+        IntType = int
+        BooleanType = bool
+        StringTypes = (str,)
+
+    types = TypesWrapper()
+
+
 
 class Option(object):
     def __init__(self, name, nice_name="", default=None,
