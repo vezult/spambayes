@@ -83,7 +83,12 @@ from tempfile import TemporaryFile
 try:
     import cStringIO as StringIO
 except ImportError:
-    import StringIO
+    # This is python3
+    try:
+        import StringIO
+    except ImportError:
+        import io as StringIO
+
 
 import re
 import locale
